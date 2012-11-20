@@ -817,7 +817,10 @@ void SerialReceive()
         ReceiveAtune();
         break;
       case 3: //EEPROM reset
-        EEPROMreset(); 
+        if(val && val2)
+        {
+          EEPROMreset(); 
+        }
         break;
       case 4:  //receiving profile
         ReceiveProfile();
@@ -892,11 +895,11 @@ void ReceiveAtune()
   aTuneNoise2 = foo.asFloat[3];  
   aTuneLookBack = (unsigned int)foo.asFloat[4];
   aTuneLookBack2 = (unsigned int)foo.asFloat[5];
-  if(val==1)
+  if((val==0 && tuning) || (val==1 && !tuning))
   { //toggle autotune state
     changeAutoTune();
   }
-  if(val2==1)
+  if((val2==0 && tuning2) || (val2==1 && !tuning2))
   { //toggle autotune state
     changeAutoTune2();
   }
@@ -998,8 +1001,8 @@ void ProfileCommand()
 {
   if(!val && !runningProfile) StartProfile();
   if(val && runningProfile) StopProfile();
-  if(!val2 && !runningProfile2) StartProfile();
-  if(val2 && runningProfile2) StopProfile();
+  if(!val2 && !runningProfile2) StartProfile2();
+  if(val2 && runningProfile2) StopProfile2();
 }
 
 
