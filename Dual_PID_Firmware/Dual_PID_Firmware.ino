@@ -915,6 +915,10 @@ void ReceiveProfile()
   {
     StopProfile();
   }
+  if(!val2)                               // store profile receive start time
+  {
+    profReceiveStart = millis();
+  }
   while(receivingProfile)
   {
     if((millis() - profReceiveStart) >= 1000) //there was a timeout issue.  reset this transfer
@@ -922,10 +926,6 @@ void ReceiveProfile()
       receivingProfile=false;
       Serial.println("ProfError");
       EEPROMRestoreProfile();
-    }
-    if(val2==0)                               // store profile receive start time
-    {
-      profReceiveStart = millis();
     }
     if(val2>=nProfSteps)                      // profile receive complete
     {
