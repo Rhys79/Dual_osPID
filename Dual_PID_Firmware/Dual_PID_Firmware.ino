@@ -817,7 +817,7 @@ void SerialReceive()
         ReceiveAtune();
         break;
       case 3: //EEPROM reset
-        if(val && val2)
+        if((val==9) && (val2==8))
         {
           EEPROMreset(); 
         }
